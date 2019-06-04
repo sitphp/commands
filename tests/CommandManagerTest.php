@@ -2,8 +2,8 @@
 
 namespace SitPHP\Commands\Tests;
 
-use Doublit\Doublit;
-use Doublit\TestCase;
+use Doubles\Double;
+use Doubles\TestCase;
 use InvalidArgumentException;
 use SitPHP\Benchmarks\BenchManager;
 use SitPHP\Commands\Command;
@@ -278,10 +278,10 @@ class CommandManagerTest extends TestCase
 
     function testRunCommandWithHelpOption()
     {
-        $help_command = Doublit::mock(HelpTestCommand::class)->getClass();
+        $help_command = Double::mock(HelpTestCommand::class)->getClass();
         $this->command_manager->setCommand('help', $help_command);
 
-        $test_command = Doublit::mock(MyTestCommand::class)->getClass();
+        $test_command = Double::mock(MyTestCommand::class)->getClass();
         $this->command_manager->setCommand('my_command', $test_command);
 
         $help_command::_method('execute')->count(1);
@@ -293,10 +293,10 @@ class CommandManagerTest extends TestCase
 
     function testCommandWithHFlag()
     {
-        $help_command = Doublit::mock(HelpTestCommand::class)->getClass();
+        $help_command = Double::mock(HelpTestCommand::class)->getClass();
         $this->command_manager->setCommand('help', $help_command);
 
-        $test_command = Doublit::mock(MyTestCommand::class)->getClass();
+        $test_command = Double::mock(MyTestCommand::class)->getClass();
         $this->command_manager->setCommand('my_command', $test_command);
 
         $help_command::_method('execute')->count(1);

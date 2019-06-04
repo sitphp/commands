@@ -3,8 +3,8 @@
 namespace SitPHP\Commands;
 
 
-use Doublit\Doublit;
-use Doublit\Lib\DoubleStub;
+use Doubles\Double;
+use Doubles\Lib\DoubleStub;
 use ReflectionException;
 use SitPHP\Commands\Tools\Question\QuestionTool;
 use SitPHP\Commands\Tools\Question\QuestionManager;
@@ -96,8 +96,8 @@ class CommandTester
 
     protected function resolveQuestionManagerMock(){
         /** @var QuestionManager | DoubleStub $question_manager_mock */
-        $question_manager_mock = Doublit::mock(QuestionManager::class)->getClass();
-        $question_manager_mock::_method('make')->stub(function (Command $command, ...$params) use ($question_manager_mock)
+        $question_manager_mock = Double::mock(QuestionManager::class)->getClass();
+        $question_manager_mock::_method('make')->return(function (Command $command, ...$params) use ($question_manager_mock)
         {
             $question_mock = $this->resolveQuestionMock();
             $manager = new $question_manager_mock($this->command_manager);
@@ -116,8 +116,8 @@ class CommandTester
      */
     protected function resolveQuestionMock(){
         /** @var QuestionTool | DoubleStub $question_mock */
-        $question_mock = Doublit::mock(QuestionTool::class)->getClass();
-        $question_mock::_method('askQuestion')->stub(function(QuestionTool $question, int $verbosity = null) {
+        $question_mock = Double::mock(QuestionTool::class)->getClass();
+        $question_mock::_method('askQuestion')->return(function(QuestionTool $question, int $verbosity = null) {
 
             $prompt = $question->getPrompt();
             $input = $this->resolvePromptInput($prompt);

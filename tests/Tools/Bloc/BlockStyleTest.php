@@ -2,7 +2,7 @@
 
 namespace SitPHP\Commands\Tests\Tools\Bloc;
 
-use Doublit\TestCase;
+use Doubles\TestCase;
 use InvalidArgumentException;
 use SitPHP\Commands\Tools\Bloc\BlocStyle;
 

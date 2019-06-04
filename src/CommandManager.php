@@ -427,7 +427,7 @@ class CommandManager
             if($command === null){
                 $command = $this->resolveCommand($command_name);
                 if ($command === null) {
-                    throw new InvalidArgumentException('Command "' . $command_name . '" could not be instantiated : make sure it exists and is subclass of ' . Command::class . '.');
+                    throw new InvalidArgumentException('Command "' . $command_name . '" could not be resolved : make sure it exists and is subclass of ' . Command::class . '.');
                 }
             } else {
                 $this->prepareCommand($command);

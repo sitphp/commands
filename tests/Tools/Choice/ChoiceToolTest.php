@@ -2,9 +2,9 @@
 
 namespace SitPHP\Commands\Tests\Tools\Choice;
 
-use Doublit\Doublit;
-use Doublit\Lib\DoubleStub;
-use Doublit\TestCase;
+use Doubles\Double;
+use Doubles\Lib\DoubleStub;
+use Doubles\TestCase;
 use InvalidArgumentException;
 use SitPHP\Commands\Command;
 use SitPHP\Commands\CommandManager;
@@ -20,9 +20,9 @@ class ChoiceToolTest extends TestCase
     public function makeChoice(){
 
         /** @var DoubleStub & Command $command */
-        $command = Doublit::mock(Command::class)->getInstance();
+        $command = Double::mock(Command::class)->getInstance();
         $request = new Request('my_command', null, 'php://temp', 'php://memory', 'php://memory');
-        $command::_method('getRequest')->stub($request);
+        $command::_method('getRequest')->return($request);
         $command->setManager(new CommandManager());
 
         $choice = new ChoiceTool($command, new ChoiceManager());
@@ -31,9 +31,9 @@ class ChoiceToolTest extends TestCase
     }
 
     public function makeTtyChoice(array $input_chars = null){
-        $input = Doublit::mock(Input::class)->getInstance('php://temp');
-        $input::_method('isatty')->stub(true);
-        $input::_method('readChar')->stub(function () use($input, $input_chars){
+        $input = Double::mock(Input::class)->getInstance('php://temp');
+        $input::_method('isatty')->return(true);
+        $input::_method('readChar')->return(function () use($input, $input_chars){
             if($input_chars === null){
                 return fgetc($input->getHandle());
             }
@@ -44,14 +44,14 @@ class ChoiceToolTest extends TestCase
             return $char;
         });
 
-        $output = Doublit::mock(Output::class)->getInstance('php://memory');
-        $output::_method('isatty')->stub(true);
+        $output = Double::mock(Output::class)->getInstance('php://memory');
+        $output::_method('isatty')->return(true);
 
         $request = new Request('my_command', null, $input, $output, 'php://memory');
 
         /** @var DoubleStub & Command $command */
-        $command = Doublit::mock(Command::class)->getInstance();
-        $command::_method('getRequest')->stub($request);
+        $command = Double::mock(Command::class)->getInstance();
+        $command::_method('getRequest')->return($request);
         $command->setManager(new CommandManager());
         $choice = new ChoiceTool($command, new ChoiceManager());
 
@@ -62,16 +62,16 @@ class ChoiceToolTest extends TestCase
         $choice_manager = new ChoiceManager();
         $request = new Request('my_command');
         /** @var DoubleStub & Command $command */
-        $command = Doublit::mock(Command::class)->getInstance();
-        $command::_method('getRequest')->stub($request);
+        $command = Double::mock(Command::class)->getInstance();
+        $command::_method('getRequest')->return($request);
         $command->setManager(new CommandManager());
 
         /** @var ChoiceStyle & DoubleStub $style */
-        $style = Doublit::mock(ChoiceStyle::class)->getInstance();
+        $style = Double::mock(ChoiceStyle::class)->getInstance();
 
         /** @var ChoiceTool & DoubleStub $choice */
-        $choice = Doublit::mock(ChoiceTool::class)->getInstance($command, $choice_manager);
-        $choice::_method('getStyle')->stub($style);
+        $choice = Double::mock(ChoiceTool::class)->getInstance($command, $choice_manager);
+        $choice::_method('getStyle')->return($style);
 
         return [$choice, $style];
     }
@@ -120,8 +120,8 @@ My prompt > ",implode('',$choice->getOutput()->getBuffer()));
         $request = new Request('my_command', null, 'php://temp', 'php://memory', 'php://memory');
 
         /** @var DoubleStub & Command $command */
-        $command = Doublit::mock(Command::class)->getInstance();
-        $command::_method('getRequest')->stub($request);
+        $command = Double::mock(Command::class)->getInstance();
+        $command::_method('getRequest')->return($request);
         $command->setManager(new CommandManager());
         $choice = new ChoiceTool($command, new ChoiceManager());
         $choice->setChoices(['choice1', 'choice2'])
@@ -472,17 +472,17 @@ My prompt > ",implode('',$choice->getOutput()->getBuffer()));
     }
 
     public function testChoiceShouldUseErrorOutputWhenStandardOutputIsNotATty(){
-        $input = Doublit::mock(Input::class)->getInstance('php://temp');
-        $input::_method('isatty')->stub(true);
+        $input = Double::mock(Input::class)->getInstance('php://temp');
+        $input::_method('isatty')->return(true);
 
-        $error_output = Doublit::mock(Output::class)->getInstance('php://memory');
-        $error_output::_method('isatty')->stub(true);
+        $error_output = Double::mock(Output::class)->getInstance('php://memory');
+        $error_output::_method('isatty')->return(true);
 
         $request = new Request('my_command', null, $input, 'php://memory', $error_output);
 
         /** @var DoubleStub & Command $command */
-        $command = Doublit::mock(Command::class)->getInstance();
-        $command::_method('getRequest')->stub($request);
+        $command = Double::mock(Command::class)->getInstance();
+        $command::_method('getRequest')->return($request);
         $command->setManager(new CommandManager());
         $choice = new ChoiceTool($command, new ChoiceManager());
 

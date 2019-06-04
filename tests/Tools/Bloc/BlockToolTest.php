@@ -2,9 +2,9 @@
 
 namespace SitPHP\Commands\Tests\Tools\Bloc;
 
-use Doublit\Doublit;
-use Doublit\Lib\DoubleStub;
-use Doublit\TestCase;
+use Doubles\Double;
+use Doubles\Lib\DoubleStub;
+use Doubles\TestCase;
 use InvalidArgumentException;
 use SitPHP\Commands\Command;
 use SitPHP\Commands\CommandManager;
@@ -19,9 +19,9 @@ class blocToolTest extends TestCase
 
     public function makebloc(){
         /** @var DoubleStub & Command $command */
-        $command = Doublit::mock(Command::class)->getInstance();
+        $command = Double::mock(Command::class)->getInstance();
         $request = new Request('my_command', null, 'php://temp', 'php://memory', 'php://memory');
-        $command::_method('getRequest')->stub($request);
+        $command::_method('getRequest')->return($request);
         $command->setManager(new CommandManager());
 
         $bloc = new BlocTool($command, new BlocManager());
@@ -31,15 +31,15 @@ class blocToolTest extends TestCase
 
     public function makeblocWithStyle(){
         /** @var DoubleStub & Command $command */
-        $command = Doublit::mock(Command::class)->getInstance();
-        $command::_method('getRequest')->stub(new Request('my_command'));
+        $command = Double::mock(Command::class)->getInstance();
+        $command::_method('getRequest')->return(new Request('my_command'));
         $command->setManager(new CommandManager());
 
         /** @var DoubleStub & BlocStyle $style */
-        $style = Doublit::mock(BlocStyle::class)->getInstance();
+        $style = Double::mock(BlocStyle::class)->getInstance();
         /** @var DoubleStub & Tool $style */
-        $bloc = Doublit::mock(BlocTool::class)->getInstance($command, new BlocManager());
-        $bloc::_method('getStyle')->stub($style);
+        $bloc = Double::mock(BlocTool::class)->getInstance($command, new BlocManager());
+        $bloc::_method('getStyle')->return($style);
 
         return [$bloc, $style];
     }

@@ -2,8 +2,8 @@
 
 namespace App\Lib\Commandit\Tests;
 
-use Doublit\Doublit;
-use Doublit\TestCase;
+use Doubles\Double;
+use Doubles\TestCase;
 use SitPHP\Commands\Input;
 
 class InputTest extends TestCase
@@ -59,8 +59,8 @@ class InputTest extends TestCase
          * Test read char
          */
     function testReadChar(){
-        $input = Doublit::mock(Input::class)->getInstance('php://memory');
-        $input::_method('isatty')->stub(true);
+        $input = Double::mock(Input::class)->getInstance('php://memory');
+        $input::_method('isatty')->return(true);
 
 
         fwrite($input->getHandle(), 'write more than 6 chars');

@@ -2,9 +2,9 @@
 
 namespace SitPHP\Commands\Tests;
 
-use Doublit\Doublit;
-use Doublit\Lib\DoubleStub;
-use Doublit\TestCase;
+use Doubles\Double;
+use Doubles\Lib\DoubleStub;
+use Doubles\TestCase;
 use SitPHP\Commands\Command;
 use SitPHP\Commands\CommandManager;
 use SitPHP\Commands\Input;
@@ -19,12 +19,12 @@ class ToolTest extends TestCase
         $request = new Request('my_command', null, 'php://temp', 'php://memory', 'php://memory');
 
         /** @var DoubleStub & Command $command */
-        $command = Doublit::mock(Command::class)->getInstance();
+        $command = Double::mock(Command::class)->getInstance();
         $command->setManager(new CommandManager());
-        $command::_method('getRequest')->stub($request);
+        $command::_method('getRequest')->return($request);
 
         /** @var DoubleStub & Tool $tool */
-        $tool = Doublit::mock(Tool::class)->getInstance($command);
+        $tool = Double::mock(Tool::class)->getInstance($command);
         return $tool;
     }
 

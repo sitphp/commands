@@ -3,9 +3,9 @@
 
 namespace SitPHP\Commands\Tests;
 
-use Doublit\Doublit;
-use Doublit\Lib\DoubleStub;
-use Doublit\TestCase;
+use Doubles\Double;
+use Doubles\Lib\DoubleStub;
+use Doubles\TestCase;
 use SitPHP\Commands\Command;
 use SitPHP\Commands\Output;
 use SitPHP\Formatters\FormatterManager;
@@ -38,8 +38,8 @@ class OutputTest extends TestCase
     public function testFormatting()
     {
         /** @var Output $output */
-        $output= Doublit::mock(Output::class)->getInstance('php://memory');
-        $output::_method('isatty')->stub(true);
+        $output= Double::mock(Output::class)->getInstance('php://memory');
+        $output::_method('isatty')->return(true);
 
         $output = new Output('php://memory');
 
@@ -58,14 +58,14 @@ class OutputTest extends TestCase
     public function testPut()
     {
         /** @var DoubleStub & Stream $stream */
-        $stream = Doublit::mock(Stream::class)->getInstance('php://memory', 'w+');
-        $stream::_method('put')->count(1)->args(['message'])->stub('return');
+        $stream = Double::mock(Stream::class)->getInstance('php://memory', 'w+');
+        $stream::_method('put')->count(1)->args(['message'])->return('return');
 
         /** @var DoubleStub & Output $output */
-        $output = Doublit::mock(Output::class)
+        $output = Double::mock(Output::class)
             ->allowProtectedMethods(true)
             ->getInstance('php://memory');
-        $output::_method('getStream')->stub($stream);
+        $output::_method('getStream')->return($stream);
 
         $this->assertEquals('return', $output->put('message'));
     }
@@ -73,14 +73,14 @@ class OutputTest extends TestCase
     public function testGetPath()
     {
         /** @var DoubleStub & Stream $stream */
-        $stream = Doublit::mock(Stream::class)->getInstance('php://memory', 'w+');
-        $stream::_method('getPath')->count(1)->stub('return');
+        $stream = Double::mock(Stream::class)->getInstance('php://memory', 'w+');
+        $stream::_method('getPath')->count(1)->return('return');
 
         /** @var DoubleStub & Output $output */
-        $output = Doublit::mock(Output::class)
+        $output = Double::mock(Output::class)
             ->allowProtectedMethods(true)
             ->getInstance('php://memory');
-        $output::_method('getStream')->stub($stream);
+        $output::_method('getStream')->return($stream);
 
         $this->assertEquals('return', $output->getPath());
     }
@@ -88,172 +88,172 @@ class OutputTest extends TestCase
     public function testGetHandle()
     {
         /** @var DoubleStub & Stream $stream */
-        $stream = Doublit::mock(Stream::class)->getInstance('php://memory', 'w+');
-        $stream::_method('getHandle')->count(1)->stub('return');
+        $stream = Double::mock(Stream::class)->getInstance('php://memory', 'w+');
+        $stream::_method('getHandle')->count(1)->return('return');
 
         /** @var DoubleStub & Output $output */
-        $output = Doublit::mock(Output::class)
+        $output = Double::mock(Output::class)
             ->allowProtectedMethods(true)
             ->getInstance('php://memory');
-        $output::_method('getStream')->stub($stream);
+        $output::_method('getStream')->return($stream);
 
         $this->assertEquals('return', $output->getHandle());
     }
     function testIsPipe(){
         /** @var DoubleStub & Stream $stream */
-        $stream = Doublit::mock(Stream::class)->getInstance('php://memory', 'w+');
-        $stream::_method('isPipe')->count(1)->stub('return');
+        $stream = Double::mock(Stream::class)->getInstance('php://memory', 'w+');
+        $stream::_method('isPipe')->count(1)->return('return');
 
         /** @var DoubleStub & Output $output */
-        $output = Doublit::mock(Output::class)
+        $output = Double::mock(Output::class)
             ->allowProtectedMethods(true)
             ->getInstance('php://memory');
-        $output::_method('getStream')->stub($stream);
+        $output::_method('getStream')->return($stream);
 
         $this->assertEquals('return', $output->isPipe());
     }
     function testIsatty(){
         /** @var DoubleStub & Stream $stream */
-        $stream = Doublit::mock(Stream::class)->getInstance('php://memory', 'w+');
-        $stream::_method('isatty')->count(1)->stub('return');
+        $stream = Double::mock(Stream::class)->getInstance('php://memory', 'w+');
+        $stream::_method('isatty')->count(1)->return('return');
 
         /** @var DoubleStub & Output $output */
-        $output = Doublit::mock(Output::class)
+        $output = Double::mock(Output::class)
             ->allowProtectedMethods(true)
             ->getInstance('php://memory');
-        $output::_method('getStream')->stub($stream);
+        $output::_method('getStream')->return($stream);
 
         $this->assertEquals('return', $output->isatty());
     }
     function testIsFile(){
         /** @var DoubleStub & Stream $stream */
-        $stream = Doublit::mock(Stream::class)->getInstance('php://memory', 'w+');
-        $stream::_method('isFile')->count(1)->stub('return');
+        $stream = Double::mock(Stream::class)->getInstance('php://memory', 'w+');
+        $stream::_method('isFile')->count(1)->return('return');
 
         /** @var DoubleStub & Output $output */
-        $output = Doublit::mock(Output::class)
+        $output = Double::mock(Output::class)
             ->allowProtectedMethods(true)
             ->getInstance('php://memory');
-        $output::_method('getStream')->stub($stream);
+        $output::_method('getStream')->return($stream);
 
         $this->assertEquals('return', $output->isFile());
     }
     function testIschar(){
         /** @var DoubleStub & Stream $stream */
-        $stream = Doublit::mock(Stream::class)->getInstance('php://memory', 'w+');
-        $stream::_method('isChar')->count(1)->stub('return');
+        $stream = Double::mock(Stream::class)->getInstance('php://memory', 'w+');
+        $stream::_method('isChar')->count(1)->return('return');
 
         /** @var DoubleStub & Output $output */
-        $output = Doublit::mock(Output::class)
+        $output = Double::mock(Output::class)
             ->allowProtectedMethods(true)
             ->getInstance('php://memory');
-        $output::_method('getStream')->stub($stream);
+        $output::_method('getStream')->return($stream);
 
         $this->assertEquals('return', $output->isChar());
     }
     function testFlush()
     {
         /** @var DoubleStub & Stream $stream */
-        $stream = Doublit::mock(Stream::class)->getInstance('php://memory', 'w+');
-        $stream::_method('flush')->count(1)->stub('return');
+        $stream = Double::mock(Stream::class)->getInstance('php://memory', 'w+');
+        $stream::_method('flush')->count(1)->return('return');
 
         /** @var DoubleStub & Output $output */
-        $output = Doublit::mock(Output::class)
+        $output = Double::mock(Output::class)
             ->allowProtectedMethods(true)
             ->getInstance('php://memory');
-        $output::_method('getStream')->stub($stream);
+        $output::_method('getStream')->return($stream);
 
         $this->assertEquals('return', $output->flush());
     }
     function testClose(){
         /** @var DoubleStub & Stream $stream */
-        $stream = Doublit::mock(Stream::class)->getInstance('php://memory', 'w+');
-        $stream::_method('close')->count(1)->stub('return');
+        $stream = Double::mock(Stream::class)->getInstance('php://memory', 'w+');
+        $stream::_method('close')->count(1)->return('return');
 
         /** @var DoubleStub & Output $output */
-        $output = Doublit::mock(Output::class)
+        $output = Double::mock(Output::class)
             ->allowProtectedMethods(true)
             ->getInstance('php://memory');
-        $output::_method('getStream')->stub($stream);
+        $output::_method('getStream')->return($stream);
 
         $this->assertEquals('return', $output->close());
     }
     function testIsEndOfFile(){
         /** @var DoubleStub & Stream $stream */
-        $stream = Doublit::mock(Stream::class)->getInstance('php://memory', 'w+');
-        $stream::_method('isEndOfFile')->count(1)->stub('return');
+        $stream = Double::mock(Stream::class)->getInstance('php://memory', 'w+');
+        $stream::_method('isEndOfFile')->count(1)->return('return');
 
         /** @var DoubleStub & Output $output */
-        $output = Doublit::mock(Output::class)
+        $output = Double::mock(Output::class)
             ->allowProtectedMethods(true)
             ->getInstance('php://memory');
-        $output::_method('getStream')->stub($stream);
+        $output::_method('getStream')->return($stream);
 
         $this->assertEquals('return',$output->isEndOfFile());
     }
     function testPassThru(){
         /** @var DoubleStub & Stream $stream */
-        $stream = Doublit::mock(Stream::class)->getInstance('php://memory', 'w+');
-        $stream::_method('passThru')->count(1)->stub('return');
+        $stream = Double::mock(Stream::class)->getInstance('php://memory', 'w+');
+        $stream::_method('passThru')->count(1)->return('return');
 
         /** @var DoubleStub & Output $output */
-        $output = Doublit::mock(Output::class)
+        $output = Double::mock(Output::class)
             ->allowProtectedMethods(true)
             ->getInstance('php://memory');
-        $output::_method('getStream')->stub($stream);
+        $output::_method('getStream')->return($stream);
 
         $this->assertEquals('return', $output->passThru());
     }
     function testSeek(){
         /** @var DoubleStub & Stream $stream */
-        $stream = Doublit::mock(Stream::class)->getInstance('php://memory', 'w+');
-        $stream::_method('seek')->count(1)->args([2])->stub('return');
+        $stream = Double::mock(Stream::class)->getInstance('php://memory', 'w+');
+        $stream::_method('seek')->count(1)->args([2])->return('return');
 
         /** @var DoubleStub & Output $output */
-        $output = Doublit::mock(Output::class)
+        $output = Double::mock(Output::class)
             ->allowProtectedMethods(true)
             ->getInstance('php://memory');
-        $output::_method('getStream')->stub($stream);
+        $output::_method('getStream')->return($stream);
 
         $this->assertEquals('return', $output->seek(2));
     }
 
     function testTell(){
         /** @var DoubleStub & Stream $stream */
-        $stream = Doublit::mock(Stream::class)->getInstance('php://memory', 'w+');
-        $stream::_method('tell')->count(1)->stub('return');
+        $stream = Double::mock(Stream::class)->getInstance('php://memory', 'w+');
+        $stream::_method('tell')->count(1)->return('return');
 
         /** @var DoubleStub & Output $output */
-        $output = Doublit::mock(Output::class)
+        $output = Double::mock(Output::class)
             ->allowProtectedMethods(true)
             ->getInstance('php://memory');
-        $output::_method('getStream')->stub($stream);
+        $output::_method('getStream')->return($stream);
 
         $this->assertEquals('return', $output->tell());
     }
     function testRewind(){
         /** @var DoubleStub & Stream $stream */
-        $stream = Doublit::mock(Stream::class)->getInstance('php://memory', 'w+');
-        $stream::_method('rewind')->count(1)->stub('return');
+        $stream = Double::mock(Stream::class)->getInstance('php://memory', 'w+');
+        $stream::_method('rewind')->count(1)->return('return');
 
         /** @var DoubleStub & Output $output */
-        $output = Doublit::mock(Output::class)
+        $output = Double::mock(Output::class)
             ->allowProtectedMethods(true)
             ->getInstance('php://memory');
-        $output::_method('getStream')->stub($stream);
+        $output::_method('getStream')->return($stream);
 
         $this->assertEquals('return', $output->rewind());
     }
     function testGetContents(){
         /** @var DoubleStub & Stream $stream */
-        $stream = Doublit::mock(Stream::class)->getInstance('php://memory', 'w+');
-        $stream::_method('getContents')->count(1)->stub('return');
+        $stream = Double::mock(Stream::class)->getInstance('php://memory', 'w+');
+        $stream::_method('getContents')->count(1)->return('return');
 
         /** @var DoubleStub & Output $output */
-        $output = Doublit::mock(Output::class)
+        $output = Double::mock(Output::class)
             ->allowProtectedMethods(true)
             ->getInstance('php://memory');
-        $output::_method('getStream')->stub($stream);
+        $output::_method('getStream')->return($stream);
 
         $this->assertEquals('return', $output->getContents());
 
@@ -328,8 +328,8 @@ class OutputTest extends TestCase
         $format_manager = new FormatterManager();
         $formatter = $format_manager->formatter('cli');
         /** @var DoubleStub & Output $output */
-        $output = Doublit::mock(Output::class)->getInstance('php://memory');
-        $output::_method('isatty')->stub(true);
+        $output = Double::mock(Output::class)->getInstance('php://memory');
+        $output::_method('isatty')->return(true);
         $output->setFormatter($formatter);
 
         $output->write('<cs color="red">message</cs>');
@@ -340,8 +340,8 @@ class OutputTest extends TestCase
         $format_manager = new FormatterManager();
         $formatter = $format_manager->formatter('cli');
         /** @var DoubleStub & Output $output */
-        $output = Doublit::mock(Output::class)->getInstance('php://memory');
-        $output::_method('isFile')->stub(false);
+        $output = Double::mock(Output::class)->getInstance('php://memory');
+        $output::_method('isFile')->return(false);
         $output->setFormatter($formatter);
 
         $output->write('<cs color="red">message</cs>');
@@ -351,7 +351,7 @@ class OutputTest extends TestCase
     public function testWriteLn()
     {
         /** @var DoubleStub & Output $output */
-        $output = Doublit::mock(Output::class)->getInstance('php://memory');
+        $output = Double::mock(Output::class)->getInstance('php://memory');
         $output::_method('write')->args(['message'.PHP_EOL])->count(1);
         $formatter = (new FormatterManager())->formatter('cli');
         $output->setFormatter($formatter);
@@ -491,8 +491,8 @@ class OutputTest extends TestCase
 
     public function testTtyDisplayContentAtBufferPosition(){
         /** @var DoubleStub & Output $output */
-        $output = Doublit::mock(Output::class)->getInstance('php://memory');
-        $output::_method('isatty')->stub(true);
+        $output = Double::mock(Output::class)->getInstance('php://memory');
+        $output::_method('isatty')->return(true);
 
         $formatter = (new FormatterManager())->formatter('cli');
         $output->setFormatter($formatter);
@@ -506,8 +506,8 @@ class OutputTest extends TestCase
 
     public function testUnknownDisplayContentAtBufferPosition(){
         /** @var DoubleStub & Output $output */
-        $output = Doublit::mock(Output::class)->getInstance('php://memory');
-        $output::_method('isFile')->stub(false);
+        $output = Double::mock(Output::class)->getInstance('php://memory');
+        $output::_method('isFile')->return(false);
 
         $formatter = (new FormatterManager())->formatter('cli');
         $output->setFormatter($formatter);
@@ -766,8 +766,8 @@ class OutputTest extends TestCase
     public function testMoveCursorDown()
     {
         /** @var Output & DoubleStub $output */
-        $output = Doublit::mock(Output::class)->getInstance('php://memory');
-        $output::_method('isFile')->stub(false);
+        $output = Double::mock(Output::class)->getInstance('php://memory');
+        $output::_method('isFile')->return(false);
         $output->moveCursorDown(0);
         $output->moveCursorDown(3);
         rewind($output->getHandle());
@@ -878,9 +878,9 @@ class OutputTest extends TestCase
     public function testWindowGetSize()
     {
         /** @var DoubleStub & Output $output */
-        $output = Doublit::mock(Output::class)->getInstance('php://memory');
-        $output::_method('getWindowHeight')->stub(3);
-        $output::_method('getWindowWidth')->stub(4);
+        $output = Double::mock(Output::class)->getInstance('php://memory');
+        $output::_method('getWindowHeight')->return(3);
+        $output::_method('getWindowWidth')->return(4);
 
         $this->assertEquals(['height'=> 3, 'width'=>4], $output->getWindowSize());
 

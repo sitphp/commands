@@ -2,9 +2,9 @@
 
 namespace SitPHP\Commands\Tests\Tools;
 
-use Doublit\Doublit;
-use Doublit\Lib\DoubleStub;
-use Doublit\TestCase;
+use Doubles\Double;
+use Doubles\Lib\DoubleStub;
+use Doubles\TestCase;
 use InvalidArgumentException;
 use LogicException;
 use SitPHP\Commands\Command;
@@ -21,9 +21,9 @@ class ProgressBarToolTest extends TestCase
     public function makeProgressBar()
     {
         /** @var DoubleStub & Command $command */
-        $command = Doublit::mock(Command::class)->getInstance();
+        $command = Double::mock(Command::class)->getInstance();
         $request = new Request('my_command', null, 'php://temp', 'php://memory', 'php://memory');
-        $command::_method('getRequest')->stub($request);
+        $command::_method('getRequest')->return($request);
         $command->setManager(new CommandManager());
 
         $progress_bar = new ProgressBarTool($command, new ProgressBarManager(), 10);
@@ -34,16 +34,16 @@ class ProgressBarToolTest extends TestCase
     public function makeProgressBarWithStyle(){
         $request = new Request('my_command');
         /** @var DoubleStub & Command $command */
-        $command = Doublit::mock(Command::class)->getInstance();
-        $command::_method('getRequest')->stub($request);
+        $command = Double::mock(Command::class)->getInstance();
+        $command::_method('getRequest')->return($request);
         $command->setManager(new CommandManager());
 
         /** @var ProgressBarStyle & DoubleStub $style */
-        $style = Doublit::mock(ProgressBarStyle::class)->getInstance();
+        $style = Double::mock(ProgressBarStyle::class)->getInstance();
 
         /** @var ProgressBarTool & DoubleStub $progress_bar */
-        $progress_bar = Doublit::mock(ProgressBarTool::class)->getInstance($command, new ProgressBarManager(), 10);
-        $progress_bar::_method('getStyle')->stub($style);
+        $progress_bar = Double::mock(ProgressBarTool::class)->getInstance($command, new ProgressBarManager(), 10);
+        $progress_bar::_method('getStyle')->return($style);
 
         return [$progress_bar, $style];
     }

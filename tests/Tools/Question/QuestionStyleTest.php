@@ -2,7 +2,7 @@
 
 namespace SitPHP\Commands\Tests\Tools;
 
-use Doublit\TestCase;
+use Doubles\TestCase;
 use SitPHP\Commands\Tools\Question\QuestionStyle;
 
 class QuestionStyleTest extends TestCase

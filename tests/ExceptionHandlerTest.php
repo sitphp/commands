@@ -2,7 +2,7 @@
 
 namespace SitPHP\Commands\Tests;
 
-use Doublit\TestCase;
+use Doubles\TestCase;
 use Exception;
 use SitPHP\Commands\CommandManager;
 use SitPHP\Commands\ExceptionHandler;
@@ -25,7 +25,7 @@ class ExceptionHandlerTest extends TestCase
 
         $this->assertEquals('
  Error  : my message
-in file "/Users/alexandre/Sites/sitphp/commands/tests/ExceptionHandlerTest.php" at line 19
+in file "'.dirname(__FILE__).'/ExceptionHandlerTest.php" at line 19
 
 Stacktrace :
 -------------------

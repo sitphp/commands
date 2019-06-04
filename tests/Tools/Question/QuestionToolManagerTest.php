@@ -2,9 +2,9 @@
 
 namespace SitPHP\Commands\Tests\Tools;
 
-use Doublit\Doublit;
-use Doublit\Lib\DoubleStub;
-use Doublit\TestCase;
+use Doubles\Double;
+use Doubles\Lib\DoubleStub;
+use Doubles\TestCase;
 use SitPHP\Commands\Command;
 use SitPHP\Commands\CommandManager;
 use SitPHP\Commands\Request;
@@ -20,9 +20,9 @@ class QuestionToolManagerTest extends TestCase
     {
 
         /** @var DoubleStub & Command $command */
-        $command = Doublit::mock(Command::class)->getInstance();
-        $command::_method('getRequest')->stub(new Request('my_command'));
-        $command::_method('getManager')->stub(new CommandManager());
+        $command = Double::mock(Command::class)->getInstance();
+        $command::_method('getRequest')->return(new Request('my_command'));
+        $command::_method('getManager')->return(new CommandManager());
 
         $question_manager = new QuestionManager();
         $question = $question_manager->make($command);

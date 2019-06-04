@@ -2,9 +2,9 @@
 
 namespace SitPHP\Commands\Tests\Tools\Bloc;
 
-use Doublit\Doublit;
-use Doublit\Lib\DoubleStub;
-use Doublit\TestCase;
+use Doubles\Double;
+use Doubles\Lib\DoubleStub;
+use Doubles\TestCase;
 use SitPHP\Commands\Command;
 use SitPHP\Commands\Request;
 use SitPHP\Commands\Tools\Bloc\BlocStyle;
@@ -17,8 +17,8 @@ class BlocToolManagerTest extends TestCase
     public function testMake()
     {
         /** @var DoubleStub & Command $command */
-        $command = Doublit::mock(Command::class)->getInstance();
-        $command::_method('getRequest')->stub(new Request('my_command'));
+        $command = Double::mock(Command::class)->getInstance();
+        $command::_method('getRequest')->return(new Request('my_command'));
 
         $bloc_manager = new BlocManager();
         $bloc = $bloc_manager->make($command);

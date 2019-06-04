@@ -2,7 +2,7 @@
 
 namespace SitPHP\Commands\Tests\Tools;
 
-use Doublit\TestCase;
+use Doubles\TestCase;
 use SitPHP\Commands\Tools\ProgressBar\ProgressBarStyle;
 
 class ProgressBarStyleTest extends TestCase

@@ -2,7 +2,7 @@
 
 namespace SitPHP\Commands\Tests\Tools\Choice;
 
-use Doublit\TestCase;
+use Doubles\TestCase;
 use SitPHP\Commands\Tools\Choice\ChoiceStyle;
 
 class ChoiceStyleTest extends TestCase

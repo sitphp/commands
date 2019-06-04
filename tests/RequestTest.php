@@ -2,8 +2,9 @@
 
 namespace SitPHP\Commands\Tests;
 
-use Doublit\Doublit;
-use Doublit\TestCase;
+use Doubles\Double;
+use Doubles\Lib\DoubleStub;
+use Doubles\TestCase;
 use InvalidArgumentException;
 use SitPHP\Commands\Input;
 use SitPHP\Commands\Output;
@@ -172,8 +173,8 @@ class RequestTest extends TestCase
 
 
     public function testChangeStty(){
-        $input = Doublit::mock(Input::class)->getInstance('php://memory');
-        $input::_method('isatty')->stub(true);
+        $input = Double::mock(Input::class)->getInstance('php://memory');
+        $input::_method('isatty')->return(true);
 
         $request = new Request('my_command', null, $input);
         $this->assertTrue($request->changeStty('-echo'));
@@ -181,22 +182,28 @@ class RequestTest extends TestCase
 
     public function testChangeSttyWithoutTtyShouldReturnFalse()
     {
-        $request = new Request('my_command');
+        /** @var DoubleStub & Input $input */
+        $input = Double::mock(Input::class)->getInstance('php://memory');
+        $input::_method('isatty')->return(false);
+        /** @var DoubleStub & Request $request */
+        $request = Double::mock(Request::class)->getInstance('my_command');
+        $request::_method('getInput')->return($input);
+
         $this->assertFalse($request->changeStty('change'));
     }
 
 
     public function testRestoreStty(){
-        $input = Doublit::mock(Input::class)->getInstance('php://memory');
-        $input::_method('isatty')->stub(true);
+        $input = Double::mock(Input::class)->getInstance('php://memory');
+        $input::_method('isatty')->return(true);
 
         $request = new Request('my_command', null, $input);
         $request->changeStty('-echo');
         $this->assertTrue($request->restoreStty());
     }
     public function testRestoreSttyShouldReturnTrueWhenSttyWasNotChanged(){
-        $input = Doublit::mock(Input::class)->getInstance('php://memory');
-        $input::_method('isatty')->stub(true);
+        $input = Double::mock(Input::class)->getInstance('php://memory');
+        $input::_method('isatty')->return(true);
 
         $request = new Request('my_command', null, $input);
         $this->assertTrue($request->restoreStty());
@@ -204,7 +211,13 @@ class RequestTest extends TestCase
 
     public function testRestoreSttyWithoutTtyShouldReturnFalse()
     {
-        $request = new Request('my_command');
+        /** @var DoubleStub & Input $input */
+        $input = Double::mock(Input::class)->getInstance('php://memory');
+        $input::_method('isatty')->return(false);
+        /** @var DoubleStub & Request $request */
+        $request = Double::mock(Request::class)->getInstance('my_command');
+        $request::_method('getInput')->return($input);
+
         $this->assertFalse($request->restoreStty('change'));
     }
 

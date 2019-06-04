@@ -2,9 +2,9 @@
 
 namespace SitPHP\Commands\Tests\Tools;
 
-use Doublit\Doublit;
-use Doublit\Lib\DoubleStub;
-use Doublit\TestCase;
+use Doubles\Double;
+use Doubles\Lib\DoubleStub;
+use Doubles\TestCase;
 use InvalidArgumentException;
 use SitPHP\Commands\Command;
 use SitPHP\Commands\CommandManager;
@@ -22,9 +22,9 @@ class QuestionToolTest extends TestCase
     public function makeQuestion()
     {
         /** @var DoubleStub & Command $command */
-        $command = Doublit::mock(Command::class)->getInstance();
+        $command = Double::mock(Command::class)->getInstance();
         $request = new Request('my_command', null, 'php://temp', 'php://memory', 'php://memory');
-        $command::_method('getRequest')->stub($request);
+        $command::_method('getRequest')->return($request);
         $command->setManager(new CommandManager());
 
         $question = new QuestionTool($command, new QuestionManager());
@@ -35,26 +35,26 @@ class QuestionToolTest extends TestCase
     public function makeQuestionWithStyle()
     {
         /** @var DoubleStub & Command $command */
-        $command = Doublit::mock(Command::class)->getInstance();
+        $command = Double::mock(Command::class)->getInstance();
         $request = new Request('my_command', null, 'php://temp', 'php://memory', 'php://memory');
-        $command::_method('getRequest')->stub($request);
+        $command::_method('getRequest')->return($request);
         $command->setManager(new CommandManager());
 
         /** @var QuestionStyle & DoubleStub $style */
-        $style = Doublit::mock(QuestionStyle::class)->getInstance();
+        $style = Double::mock(QuestionStyle::class)->getInstance();
 
         /** @var QuestionTool & DoubleStub $choice */
-        $question = Doublit::mock(QuestionTool::class)->getInstance($command, new QuestionManager());
-        $question::_method('getStyle')->stub($style);
+        $question = Double::mock(QuestionTool::class)->getInstance($command, new QuestionManager());
+        $question::_method('getStyle')->return($style);
 
 
         return [$question, $style];
     }
 
     public function makeTtyQuestion(array $input_chars = null){
-        $input = Doublit::mock(Input::class)->getInstance('php://temp');
-        $input::_method('isatty')->stub('true');
-        $input::_method('readChar')->stub(function () use($input, $input_chars){
+        $input = Double::mock(Input::class)->getInstance('php://temp');
+        $input::_method('isatty')->return('true');
+        $input::_method('readChar')->return(function () use($input, $input_chars){
             if($input_chars === null){
                 return fgetc($input->getHandle());
             }
@@ -65,14 +65,14 @@ class QuestionToolTest extends TestCase
             return $char;
         });
 
-        $output = Doublit::mock(Output::class)->getInstance('php://memory');
-        $output::_method('isatty')->stub('true');
+        $output = Double::mock(Output::class)->getInstance('php://memory');
+        $output::_method('isatty')->return('true');
 
         $request = new Request('my_command', null, $input, $output);
 
         /** @var DoubleStub & Command $command */
-        $command = Doublit::mock(Command::class)->getInstance();
-        $command::_method('getRequest')->stub($request);
+        $command = Double::mock(Command::class)->getInstance();
+        $command::_method('getRequest')->return($request);
         $command->setManager(new CommandManager());
 
         $question = new QuestionTool($command, new QuestionManager());
@@ -397,12 +397,12 @@ class QuestionToolTest extends TestCase
 
 
         /** @var DoubleStub & Request $request */
-        $request = Doublit::mock(Request::class)->getInstance('my_command', null, 'php://temp', 'php://memory', 'php://memory');
-        $request::_method('isInteractive')->stub(false);
+        $request = Double::mock(Request::class)->getInstance('my_command', null, 'php://temp', 'php://memory', 'php://memory');
+        $request::_method('isInteractive')->return(false);
 
         /** @var DoubleStub & Command $command */
-        $command = Doublit::mock(Command::class)->getInstance();
-        $command::_method('getRequest')->stub($request);
+        $command = Double::mock(Command::class)->getInstance();
+        $command::_method('getRequest')->return($request);
         $command->setManager(new CommandManager());
 
         $question = new QuestionTool($command, new QuestionManager());

@@ -1,6 +1,10 @@
 # SitPHP/Commands
 
-![Read the full documentation here](https://sitphp.com/commands/doc/intro/latest)
+[![Build Status](https://travis-ci.org/sitphp/commands.svg?branch=master)](https://travis-ci.org/sitphp/commands)
+
+https://travis-ci.org/sitphp/commands.svg?branch=master
+
+[Read the full documentation here](https://sitphp.com/commands/doc/intro/latest)
 
 
 ## What is commands ?

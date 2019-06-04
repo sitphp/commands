@@ -3,9 +3,9 @@
 namespace SitPHP\Commands\Tests\Tools;
 
 
-use Doublit\Doublit;
-use Doublit\Lib\DoubleStub;
-use Doublit\TestCase;
+use Doubles\Double;
+use Doubles\Lib\DoubleStub;
+use Doubles\TestCase;
 use InvalidArgumentException;
 use SitPHP\Commands\Command;
 use SitPHP\Commands\CommandManager;
@@ -20,9 +20,9 @@ class TableToolTest extends TestCase
 
     public function makeTable(){
         /** @var DoubleStub & Command $command */
-        $command = Doublit::mock(Command::class)->getInstance();
+        $command = Double::mock(Command::class)->getInstance();
         $request = new Request('my_command', null, 'php://temp', 'php://memory', 'php://memory');
-        $command::_method('getRequest')->stub($request);
+        $command::_method('getRequest')->return($request);
         $command->setManager(new CommandManager());
 
         $table = new TableTool($command, new TableManager());
@@ -31,17 +31,17 @@ class TableToolTest extends TestCase
 
     public function makeTableWithStyle(){
         /** @var DoubleStub & Command $command */
-        $command = Doublit::mock(Command::class)->getInstance();
+        $command = Double::mock(Command::class)->getInstance();
         $request = new Request('my_command', null, 'php://temp', 'php://memory', 'php://memory');
-        $command::_method('getRequest')->stub($request);
+        $command::_method('getRequest')->return($request);
         $command->setManager(new CommandManager());
 
         /** @var TableStyle & DoubleStub $style */
-        $style = Doublit::mock(TableStyle::class)->getInstance();
+        $style = Double::mock(TableStyle::class)->getInstance();
 
         /** @var TableTool & DoubleStub $choice */
-        $table = Doublit::mock(TableTool::class)->getInstance($command, new TableManager());
-        $table::_method('getStyle')->stub($style);
+        $table = Double::mock(TableTool::class)->getInstance($command, new TableManager());
+        $table::_method('getStyle')->return($style);
 
         return [$table, $style];
     }

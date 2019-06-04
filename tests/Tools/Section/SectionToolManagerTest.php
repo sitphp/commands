@@ -2,9 +2,9 @@
 
 namespace SitPHP\Commands\Tests\Tools;
 
-use Doublit\Doublit;
-use Doublit\Lib\DoubleStub;
-use Doublit\TestCase;
+use Doubles\Double;
+use Doubles\Lib\DoubleStub;
+use Doubles\TestCase;
 use SitPHP\Commands\Command;
 use SitPHP\Commands\Request;
 use SitPHP\Commands\Tools\Section\SectionManager;
@@ -15,8 +15,8 @@ class SectionToolManagerTest extends TestCase
     public function testMake()
     {
         /** @var DoubleStub & Command $command */
-        $command = Doublit::mock(Command::class)->getInstance();
-        $command::_method('getRequest')->stub(new Request('my_command'));
+        $command = Double::mock(Command::class)->getInstance();
+        $command::_method('getRequest')->return(new Request('my_command'));
 
         $section_manager = new SectionManager();
         $section = $section_manager->make($command);

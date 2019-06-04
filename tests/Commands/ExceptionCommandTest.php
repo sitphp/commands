@@ -4,7 +4,7 @@
 namespace SitPHP\Commands\Tests\Commands;
 
 
-use Doublit\TestCase;
+use Doubles\TestCase;
 use Exception;
 use SitPHP\Commands\CommandManager;
 use SitPHP\Commands\Commands\ExceptionCommand;
@@ -26,7 +26,7 @@ class ExceptionCommandTest extends TestCase
 
         $this->assertContains('
  Error  : my message
-in file "/Users/alexandre/Sites/sitphp/commands/tests/Commands/ExceptionCommandTest.php" at line 17
+in file "'.dirname(__DIR__).'/Commands/ExceptionCommandTest.php" at line 17
 ', $output);
     }
 

@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "php": ">=7.0",
+        "php": ">=7.1",
         "sitphp/formatters": "~3.5.2",
         "sitphp/helpers": "1.2.*",
         "sitphp/events": "2.1.*",
@@ -19,7 +19,8 @@
         "ext-mbstring" : "*"
     },
     "require-dev": {
-        "gealex/doublit": "~2.1.4"
+        "sitphp/doubles": "2.2.*",
+        "phpunit/phpunit" : "7.*"
     },
     "autoload": {
         "psr-4": {

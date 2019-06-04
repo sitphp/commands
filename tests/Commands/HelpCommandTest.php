@@ -2,7 +2,7 @@
 
 namespace SitPHP\Commands\Tests\Commands;
 
-use Doublit\TestCase;
+use Doubles\TestCase;
 use SitPHP\Commands\Command;
 use SitPHP\Commands\CommandTester;
 use SitPHP\Commands\CommandManager;

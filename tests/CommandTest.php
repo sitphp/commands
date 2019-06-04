@@ -2,15 +2,15 @@
 
 namespace App\Lib\Commandit\Tests;
 
-use Doublit\Doublit;
-use Doublit\Lib\DoubleStub;
+use Doubles\Double;
+use Doubles\Lib\DoubleStub;
 use InvalidArgumentException;
 use LogicException;
 use \SitPHP\Commands\Command;
 use \SitPHP\Commands\CommandManager;
 use SitPHP\Commands\Output;
 use SitPHP\Commands\Request;
-use Doublit\TestCase;
+use Doubles\TestCase;
 use SitPHP\Commands\Tools\Bloc\BlocTool;
 use SitPHP\Commands\Tools\Choice\ChoiceTool;
 use SitPHP\Commands\Tools\ProgressBar\ProgressBarTool;
@@ -23,7 +23,7 @@ class CommandTest extends TestCase
 
     function testHideShow(){
         /** @var Command & DoubleStub $command */
-        $command = Doublit::mock(Command::class)->getInstance();
+        $command = Double::mock(Command::class)->getInstance();
         $this->assertFalse($command->isHidden());
         $command->hide();
         $this->assertTrue($command->isHidden());
@@ -33,21 +33,21 @@ class CommandTest extends TestCase
 
     function testGetSetTitle(){
         /** @var Command & DoubleStub $command */
-        $command = Doublit::mock(Command::class)->getInstance();
+        $command = Double::mock(Command::class)->getInstance();
         $command->setTitle('title');
         $this->assertEquals('title', $command->getTitle());
     }
 
     function testGetSetDescription(){
         /** @var Command & DoubleStub $command */
-        $command = Doublit::mock(Command::class)->getInstance();
+        $command = Double::mock(Command::class)->getInstance();
         $command->setDescription('help');
         $this->assertEquals('help', $command->getDescription());
     }
 
     function testArgumentInfo(){
         /** @var Command & DoubleStub $command */
-        $command = Doublit::mock(Command::class)->getInstance();
+        $command = Double::mock(Command::class)->getInstance();
         $command->setArgumentInfos('my_arg', 0, 'argument help');
         $this->assertEquals($command->getArgumentInfos('my_arg'), ['position' => 0, 'description' => 'argument help']);
         $this->assertEquals($command->getArgumentPosition('my_arg'), 0);
@@ -56,7 +56,7 @@ class CommandTest extends TestCase
 
     function testGetAllArgumentsInfos(){
         /** @var Command & DoubleStub $command */
-        $command = Doublit::mock(Command::class)->getInstance();
+        $command = Double::mock(Command::class)->getInstance();
         $command->setArgumentInfos('my_arg', 0, 'argument help');
 
         $this->assertEquals(['my_arg' => ['position' => 0, 'description' => 'argument help']], $command->getAllArgumentsInfos());
@@ -66,7 +66,7 @@ class CommandTest extends TestCase
 
         $this->expectException(InvalidArgumentException::class);
         /** @var Command & DoubleStub $command */
-        $command = Doublit::mock(Command::class)->getInstance();
+        $command = Double::mock(Command::class)->getInstance();
         $command->setArgumentInfos('my_arg', 0, 'argument help 1');
         $command->setArgumentInfos('my_arg', 3, 'argument help 2');
     }
@@ -74,14 +74,14 @@ class CommandTest extends TestCase
     function testSetArgumentInfoShouldFailWithNegativePosition(){
         $this->expectException(InvalidArgumentException::class);
         /** @var Command & DoubleStub $command */
-        $command = Doublit::mock(Command::class)->getInstance();
+        $command = Double::mock(Command::class)->getInstance();
         $command->setArgumentInfos('my_arg', -1);
 
     }
 
     function testOptionInfo(){
         /** @var Command & DoubleStub $command */
-        $command = Doublit::mock(Command::class)->getInstance();
+        $command = Double::mock(Command::class)->getInstance();
         $command->setOptionInfos('my_option', ['m', 'mo'], 'option help');
         $this->assertEquals($command->getOptionInfos('my_option'), ['flags' => ['m', 'mo'], 'description' => 'option help']);
         $this->assertEquals($command->getOptionFlags('my_option'), ['m', 'mo']);
@@ -90,7 +90,7 @@ class CommandTest extends TestCase
 
     function testGetAllOptionsInfos(){
         /** @var Command & DoubleStub $command */
-        $command = Doublit::mock(Command::class)->getInstance();
+        $command = Double::mock(Command::class)->getInstance();
         $command->setOptionInfos('my_option', ['m', 'mo'], 'option help');
 
         $this->assertEquals(['my_option' => ['flags' => ['m', 'mo'], 'description' => 'option help']], $command->getAllOptionsInfos());
@@ -98,7 +98,7 @@ class CommandTest extends TestCase
 
     function testGetOptionInfoWithStringFlags(){
         /** @var Command & DoubleStub $command */
-        $command = Doublit::mock(Command::class)->getInstance();
+        $command = Double::mock(Command::class)->getInstance();
         $command->setOptionInfos('my_option', 'm | mo', 'option help');
         $this->assertEquals($command->getOptionInfos('my_option'), ['flags' => ['m', 'mo'], 'description' => 'option help']);
         $this->assertEquals($command->getOptionFlags('my_option'), ['m', 'mo']);
@@ -107,7 +107,7 @@ class CommandTest extends TestCase
 
     function testGetOptionInfoWithoutFlagsOrDescription(){
         /** @var Command & DoubleStub $command */
-        $command = Doublit::mock(Command::class)->getInstance();
+        $command = Double::mock(Command::class)->getInstance();
         $command->setOptionInfos('my_option');
         $this->assertEquals($command->getOptionInfos('my_option'), ['flags' => [], 'description' => null]);
     }
@@ -115,7 +115,7 @@ class CommandTest extends TestCase
     function testSetOptionTwiceShouldFail(){
         $this->expectException(InvalidArgumentException::class);
         /** @var Command & DoubleStub $command */
-        $command = Doublit::mock(Command::class)->getInstance();
+        $command = Double::mock(Command::class)->getInstance();
         $command->setOptionInfos('my_option', null, 'option help 1');
         $command->setOptionInfos('my_option', null, 'option help 2');
 
@@ -125,14 +125,14 @@ class CommandTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
 
         /** @var Command & DoubleStub $command */
-        $command = Doublit::mock(Command::class)->getInstance();
+        $command = Double::mock(Command::class)->getInstance();
         $command->setOptionInfos('my_option_1', 'f');
         $command->setOptionInfos('my_option_2', 'f');
     }
 
     public function testEnableDisable(){
         /** @var Command & DoubleStub $command */
-        $command = Doublit::mock(Command::class)->getInstance();
+        $command = Double::mock(Command::class)->getInstance();
         $this->assertFalse($command->isDisabled());
         $command->disable();
         $this->assertTrue($command->isDisabled());
@@ -240,8 +240,8 @@ class CommandTest extends TestCase
     {
         $request = new Request('my_command');
         /** @var DoubleStub & Command $command */
-        $command = Doublit::mock(Command::class)->getInstance();
-        $command::_method('getRequest')->stub($request);
+        $command = Double::mock(Command::class)->getInstance();
+        $command::_method('getRequest')->return($request);
         $command->setManager(new CommandManager());
 
         $this->assertInstanceOf(SectionTool::class, $command->tool('section'));
@@ -252,8 +252,8 @@ class CommandTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $request = new Request('my_command');
         /** @var DoubleStub & Command $command */
-        $command = Doublit::mock(Command::class)->getInstance();
-        $command::_method('getRequest')->stub($request);
+        $command = Double::mock(Command::class)->getInstance();
+        $command::_method('getRequest')->return($request);
         $command->setManager(new CommandManager());
         $command->tool('undefined');
     }
@@ -262,7 +262,7 @@ class CommandTest extends TestCase
     {
         $this->expectException(LogicException::class);
         /** @var DoubleStub & Command $command */
-        $command = Doublit::mock(Command::class)->getInstance();
+        $command = Double::mock(Command::class)->getInstance();
         $command->setManager(new CommandManager());
         $command->tool('section');
     }
@@ -274,7 +274,7 @@ class CommandTest extends TestCase
     public function testWriteAndTools(){
 
         /** @var DoubleStub & Output $output */
-        $output = Doublit::mock(Output::class)->getInstance('php://memory');
+        $output = Double::mock(Output::class)->getInstance('php://memory');
         $output::_method('write')
             ->count(3)
             ->args(['write', Command::VERBOSITY_VERBOSE, 30, true], 1)
@@ -282,7 +282,7 @@ class CommandTest extends TestCase
             ->args(["\n\n", Command::VERBOSITY_VERBOSE], 3);
 
         /** @var DoubleStub & Output $error_output */
-        $error_output = Doublit::mock(Output::class)->getInstance('php://memory');
+        $error_output = Double::mock(Output::class)->getInstance('php://memory');
         $error_output::_method('write')
             ->count(3)
             ->args(['write', Command::VERBOSITY_VERBOSE, 30, true], 1)
@@ -290,13 +290,13 @@ class CommandTest extends TestCase
             ->args(["\n\n", Command::VERBOSITY_VERBOSE],3);
 
         /** @var DoubleStub & Request $request */
-        $request = Doublit::mock(Request::class)->getInstance('my_command', null,'php://temp', $output, $error_output);
+        $request = Double::mock(Request::class)->getInstance('my_command', null,'php://temp', $output, $error_output);
         /** @var DoubleStub & CommandManager $command_manager */
-        $command_manager = Doublit::mock(CommandManager::class)->getInstance();
+        $command_manager = Double::mock(CommandManager::class)->getInstance();
         $command_manager::_method('call')
             ->count(1)
             ->args(['other_command', ['param1', 'param2'], $request->getInput(), $request->getOutput(), $request->getErrorOutput()])
-            ->stub('call');
+            ->return('call');
 
         $command = new MyOtherCommand();
         $command->setManager($command_manager);

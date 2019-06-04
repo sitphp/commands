@@ -2,7 +2,7 @@
 
 namespace SitPHP\Commands\Tests\Helpers;
 
-use Doublit\TestCase;
+use Doubles\TestCase;
 use SitPHP\Commands\Helpers\CharHelper;
 
 class CharHelperTest extends TestCase

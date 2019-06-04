@@ -786,12 +786,12 @@ class Output
         $this->writeAnsi("\033[8;" . $height . ";" . $width . "t");
     }
 
-    function getWindowWidth() : int
+    function getWindowWidth()
     {
         return (int) PhpHelper::shellExec('tput cols');
     }
 
-    function getWindowHeight() : int
+    function getWindowHeight()
     {
         return (int) PhpHelper::shellExec('tput lines');
     }
