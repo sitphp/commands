@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "php": ">=7.1",
+        "php": ">=7.0",
         "sitphp/formatters": "~3.5.2",
         "sitphp/helpers": "1.2.*",
         "sitphp/events": "2.1.*",
