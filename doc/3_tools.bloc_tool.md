@@ -53,7 +53,7 @@ You can modify the display of a bloc as you wish. Here is an example of what you
         ->display();
     ```
     
-![custom command bloc](img/bloc_custom.png)
+![custom command bloc](img/bloc_style.png)
       
 ### Creating a style      
       
