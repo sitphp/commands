@@ -1,0 +1,37 @@
+{
+    "name": "sitphp/commands",
+    "description": "A simple tool to create bundle commands",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alexandre GEISWILLER",
+            "email": "alexandre.geiswiller@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.1",
+        "sitphp/formatters": "~3.5.2",
+        "sitphp/helpers": "1.2.*",
+        "sitphp/events": "2.1.*",
+        "sitphp/benchmarks": "2.3.*",
+        "sitphp/resources": "1.2.*",
+        "ext-mbstring" : "*"
+    },
+    "require-dev": {
+        "gealex/doublit": "~2.1.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "SitPHP\\Commands\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "SitPHP\\Commands\\Tests\\": "tests"
+        }
+    },
+    "bin": [
+        "bin/command"
+    ]
+}

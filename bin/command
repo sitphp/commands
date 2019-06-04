@@ -1,0 +1,51 @@
+#!/usr/bin/env php
+<?php
+
+use SitPHP\Commands\ExceptionHandler;
+use SitPHP\Commands\CommandManager;
+use SitPHP\Commands\Request;
+
+
+$autoload_file = null;
+$autoload_paths = [dirname(dirname(dirname(dirname(__FILE__)))).'/autoload.php', dirname(dirname(__FILE__)).'/vendor/autoload.php'];
+foreach($autoload_paths as $autoload_path){
+    if(file_exists($autoload_path)){
+        $autoload_file = $autoload_path;
+        break;
+    }
+}
+
+if($autoload_file === null){
+    fwrite(STDERR, 'Autoload file not found, make your you have installed this package with composer (https://getcomposer.org).'."\n");
+    exit();
+}
+require $autoload_file;
+
+/**
+ * @param $severity
+ * @param $message
+ * @param $file
+ * @param $line
+ * @throws ErrorException
+ */
+function errorHandler($severity, $message, $file, $line) {
+    // This error code is not included in error_reporting
+    if (!(error_reporting() & $severity)) {
+        return;
+    }
+    throw new ErrorException($message, 0, $severity, $file, $line);
+}
+
+set_time_limit(0);
+set_error_handler('errorHandler');
+
+$request = Request::createFromGlobal();
+$command_manager = new CommandManager();
+try{
+    $command_manager->setCommand('fdsdfs','hbbjh');
+    $command_manager->run($request);
+} catch (\Throwable $exception){
+    $exception_handler = new ExceptionHandler();
+    $exception_handler->handleForConsole($command_manager, $request, $exception);
+}
+exit();
