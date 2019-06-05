@@ -209,7 +209,6 @@ class CommandManager
         $command_def = [
             'class' => $this->resolveCommandClass($name)
         ];
-        print_r($command_def);
         $command = $this->makeCommand($command_def);
         if($command !== null){
             $this->commands[$name] = $command;
@@ -626,7 +625,7 @@ class CommandManager
         $name = str_replace(['/', '-'], ['\\', ' '], $name);
         $file_parts = explode('\\', $name);
         $file_parts = array_map(function ($value){
-            $value = ucfirst($value);
+            $value = ucwords($value);
             return str_replace(' ', '', $value);
         }, $file_parts);
 
@@ -671,7 +670,7 @@ class CommandManager
      */
     protected function makeCommand(array $command_def){
         $command_class = $command_def['class'];
-        if (!is_subclass_of($command_def['class'], Command::class)) {
+        if (!is_subclass_of($command_def['class'], \SitPHP\Commands\Command::class)) {
             return null;
         }
         /** @var Command $command */
