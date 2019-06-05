@@ -15,18 +15,16 @@ This library requires at least PHP 7. It should be installed from composer which
 ## Install
 Once you have composer installed, add the line `"sitephp/commands": "1.0.*"` in the `"require"` section of your composer.json file :
     
-    ```json
-    {
-        "require": {
-            "sitephp/commands": "1.0.*"
-        }
+```json
+{
+    "require": {
+        "sitephp/commands": "1.0.*"
     }
-    ```
+}
+```
 
 Then just run the following composer command to install the library :
 
-    ```bash
-    composer update
-    ```
-        
-
+```bash
+composer update
+```
