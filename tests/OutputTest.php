@@ -915,12 +915,12 @@ class OutputTest extends TestCase
 
     public function testGetWindowWidth(){
         $output = new Output('php://memory');
-        $this->assertEquals(0, $output->getWindowWidth());
+        $this->assertIsInt($output->getWindowWidth());
     }
 
     public function testGetWindowHeight(){
         $output = new Output('php://memory');
-        $this->assertEquals(0, $output->getWindowHeight());
+        $this->assertIsInt(0, $output->getWindowHeight());
     }
 
 }

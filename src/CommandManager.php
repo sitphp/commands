@@ -209,6 +209,7 @@ class CommandManager
         $command_def = [
             'class' => $this->resolveCommandClass($name)
         ];
+        print_r($command_def);
         $command = $this->makeCommand($command_def);
         if($command !== null){
             $this->commands[$name] = $command;
