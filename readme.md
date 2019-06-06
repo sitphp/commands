@@ -9,6 +9,8 @@
 
 The "sitphp/commands" library can help you to create commands super easily for your application or your library. You can also use it to build your own customized command tool.
 
+![command showcase](doc/img/command_showcase.gif)
+
 ## Install
 
 Add the `"sitphp/commands": "1.0.*"` line in the `"require"` section of your composer.json file :
