@@ -1,6 +1,7 @@
 {
     "name": "sitphp/commands",
     "description": "Simple yet powerful library to run commands from other libraries or to build a command application",
+    "keywords": ["php", "console", "command", "cli"],
     "type": "library",
     "license": "MIT",
     "authors": [
