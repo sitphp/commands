@@ -4,10 +4,10 @@
 
 ### Creating a simple choice question
 
-The choice tool allows you to ask the user to choose within a predefined set of choices. Use the `choice` method to create a new choice and ask for the user choice using the `ask` method. If the choice is optional, you might also want to enable the quit option with the `enableQuit` method. The choice question will be displayed until the user has given a correct choice or has quit when possible.
+The choice tool allows you to ask the user to choose within a predefined set of choices. Use the `choice` method to create a new choice and ask for the user choice using the `ask` method. You might also want to let user quit without answering with the `enableQuit` method. The choice question will be re-displayed until the user has given a correct choice or has quit if possible.
 When the user chooses to quit, the choice method will return `null`.
 
-The `choice` method can take up to three arguments to define available choices, the question prompt, and the title. 
+The `choice` method can take up to three arguments : an array of choices, the question prompt, and the title. 
     
 ```php
 // In the "handle" method of your command class ...
@@ -47,7 +47,7 @@ if(!$color_index){
 
 ### Customizing a choice question
 
-You can modify the choice question display as you wish. Here is a example of what you can do :
+You can modify the choice question display as you wish. Here is an example of what you could do with all the styling methods available :
 
 ```php
 // In the "handle" method of your command class ... 
@@ -101,7 +101,7 @@ $color_index = $this->choice($choices, 'Which color do you like best ?', 'Colors
         
 ## Multiple choices
 
-By default, it's only possible to choose one answer among choices. If you wish to allow multiple choices, you can use the `enableMultiSelect` method. Users will then be able to type a set of comma separated choices.
+By default, it's only possible to choose one answer among available choices. If you wish to allow multiple choices, you can use the `enableMultiSelect` method. Users will then be able to select multiple answers by typing a set of comma separated choices.
         
 ```php
 // In the "handle" method of your command class ...
@@ -124,7 +124,7 @@ $this->writeLn('Your favorite colors are : '.$colors);
 
 ## Sticky choice
 
-You can "stick" your choice question to the same position with the `placeHere` method. This is quite useful when you don't want the question to be re-displayed when the user types an invalid choice.
+You can "stick" your choice question to the same position with the `placeHere` method. This could be useful when you don't want the question to be re-displayed when the user types an invalid choice.
 
 ```php
 // In the "handle" method of your command class ...
@@ -136,7 +136,7 @@ $color_index = $this->choice($choices, 'Which color do you like best ?', 'Colors
 
 ![command choice sticky](img/choice_sticky.gif)      
 
-If your choice question is placed, you can also display it first and ask the question later. This could be useful to display many choice questions before actually asking the questions. For example :
+If your choice question is placed, you can also display it first and ask the question later. This could be useful to display many choice questions before actually asking the user for an answer. For example :
     
 ```php
 // In the "handle" method of your command class ...
@@ -159,7 +159,7 @@ $answer_index_2 = $choice_2->ask();
 
 ## Verbosity
 
-A choice question can easily be displayed or not depending on the verbosity. In the following example, the choice question will only be displayed with the "--verbose", or the "--debug" options. 
+A choice question can be displayed or not depending on the verbosity. In the following example, the choice question will only be displayed with the "--verbose", or the "--debug" options. 
     
 ```php
 // In the "handle" method of your command class ...

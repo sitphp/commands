@@ -6,7 +6,7 @@
 
 Creating your own command application is rather easy. It will allow you to register your commands and command tools and to customize everything you want.
 
-You should first create a php bash file (in the root of your application for example). Name it "my_app" for example. This file should instantiate and run new command manager instance. To get started, you can just copy/paste the following code.
+You should first create a php bash file (in the root of your application for example). Name it "my_app" without any extension for example. This file should instantiate new `SitPHP\Commands\CommandManager` instance and run it with a request. To get started, you can just copy/paste the following code.
 
 ```php
 #!/usr/bin/env php
@@ -59,13 +59,11 @@ If you have named your bash file "my_app" for example, you can run the pre-regis
 path/to/my_app list
 ```
     
-
 If you got this working, you can now register your first command.
-
 
 ## Registering command
 
-A command can be executed without being registered. However registering a command makes it easier to execute since you don't have to worry about it's class name. You only need to give it a name and execute it with the given name.
+A command can be executed without being registered. However registering a command makes it easier to execute since you don't have to worry about it's class name. You only need to give it a name and execute it with the chosen name.
 
 To register a command, use the `setCommand` method.    
     
@@ -74,21 +72,20 @@ To register a command, use the `setCommand` method.
 $command_manager = new Console();
 $command_manager->setCommand('yourcommand', \App\Commands\YourCommand::class);
 ```
-    
+
 This will allow you to run your command using a simplified syntax.
 
 ```php
 vendor/bin/command yourcommand
 ```
         
-
 ## Events
 
 There are four events thrown by the console that you can listen to. To listen to an event, you can use specific listener class or simply a callback.
 
 ### The request event
 
-The "request" event is thrown at the very beginning, before the command is created. To listen to this event, use the `addOnRequestListener` method.
+The "request" event is thrown with every command request. To listen to this event, use the `addOnRequestListener` method.
 
 With a callback listener :
     
@@ -101,7 +98,6 @@ $command_manager->addOnRequestListener(function(RequestEvent event){
     // do something with the request ...
 });
 ```
-
 
 Or with a listener class :
 
@@ -126,7 +122,6 @@ and then register your listener
 // In your command application file ...
 $command_manager->addOnRequestListener(\App\Listeners\YourListener::class);
 ```
-    
     
 ### The before command event 
 
@@ -160,7 +155,7 @@ The "after command" event is thrown after the command is executed. To listen to 
 
 ### The exception event
 
-The "exception" event is thrown when an exception is thrown. To listen to this event, use the `addOnExceptionListener` method. It works exactly in the same way as the previously described "before command" event.
+The "exception" event is thrown when an exception is thrown. To listen to this event, use the `addOnExceptionListener` method.
     
 ```php
 use SitPHP\Commands\Events\ExceptionEvent;
@@ -177,9 +172,13 @@ $command_manager->addOnExceptionListener(function(Exception event){
 
 ## Creating a custom tool
 
-You can create you own command tools by creating a manager class to create your tool instance and a tool class for your tool logic. 
+You can create you own command tools by creating two classes :
+ - a manager class to create your tool instance 
+ - and a tool class for your tool logic. 
 
-The tool class should extend the `SitPHP\Commands\Tool` class. Inside your tool class you have access to the command with the `getCommand` method, the request with the `getRequest` method, the tool input (which may differ from the request input) with the `getInput` method, the tool output (which may differ from the request output) with the `getOutput` method and the tool error output (which may differ from the request error output) with the `getErrorOutput` method.
+The tool class should extend the `SitPHP\Commands\Tool` class. Inside your tool class you have access to the command with the `getCommand` method, the request with the `getRequest` method, the tool input (which may differ from the request input) with the `getInput` method, the tool output (which may differ from the request output) with the `getOutput` method and the tool error output (which may differ from the request error output) with the `getErrorOutput` method and the `tool` method which give you access to other tools.
+
+First create your tool class which you extend the `\SitPHP\Commands\Tool` class :
 
 ```php
 class YourTool extends \SitPHP\Commands\Tool{
@@ -188,11 +187,11 @@ class YourTool extends \SitPHP\Commands\Tool{
         $output = $this->getOutput();
         $output->writeLn('doing something ...');
     }
-
+    
 }
 ```
 
-The tool manager class should extend the `SitPHP\Commands\ToolManager` class and implement the `make` method.
+Then create your tool manager class. It should extend the `SitPHP\Commands\ToolManager` class and implement the `make` method.
     
 ```php
 class YourToolManager extends \SitPHP\Commands\ToolManager{
@@ -225,7 +224,7 @@ function handle(){
 
 The command manager also allows you to test commands with `test` method. You can define question answers with the `setAnswer` method. 
 
-Once your test is prepared, you can then run your command with the `run` method. The first argument takes the name of the the command to test. And the second argument takes an array of arguments and options to pass to the command. It will return the output of the command you are testing.
+Once your test is prepared, you can then run your command with the `run` method. The first argument takes the name or the class of the the command to test. And the second argument takes an array of arguments and options to pass to the command. It will return the output of the command you are testing.
 
 ```php
 class MyCommandTest extends TestCase {

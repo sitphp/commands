@@ -4,8 +4,8 @@
 
 ### Creating a simple progress bar
 
-To create a progress bar, use the `progress` method with one argument to specify the number of steps of your progress bar. Then display it using the `display` method. You can then move your line forward with the `progress` method. 
-You might want to "stick" your progress bar with the `placeHere` method so that it does'nt show on a new line on each update.
+To create a progress bar, use the `progress` method with an argument to specify the number of steps of your progress bar. Then display it with the `display` method. You can then move the progress line forward with the `progress` method. 
+You might want to "stick" your progress bar with the `placeHere` method so that it does'nt show on a new line on each progress.
     
 ```php
 // In the "handle" method of your command class ...
@@ -44,7 +44,7 @@ $progress_bar->dive(3);
 
 ![more command progress bar](img/progress_more.gif) 
 
-You can also move the progress line to a specific step with the `goToStep` method
+You can also move the progress line to a specific step with the `goToStep` method :
 
 ```php
 // In the "handle" method of your command class ...
@@ -56,7 +56,7 @@ $progress_bar->goToStep(3)
     
 ```
     
-If you don't know how many steps your progress bar should have you can always update the steps number as you go with the `setSteps` method. Whenever your process has ended, you can move the progress line to the end of the progress bar with the `finish` method.
+If you don't know how many steps your progress bar should have, you can always update the steps number as you go with the `setSteps` method. Whenever your process has ended, you can move the progress line to the end of the progress bar with the `finish` method.
 
 ```php
 // In the "handle" method of your command class ...
@@ -89,11 +89,9 @@ sleep(1);
 $progress_bar->regress('regressing ...');
 ```
    
-
-    
 ### Finishing
 
-Once the progress line has reached the end, it auto finishes which means you cannot change its progress status anymore. Unless you disable the auto finish with the `disableAutoFinish` method ... You will then have to end the progress yourself with the `finish` method.
+Once the progress line has reached end of the bar, it auto finishes. Which means you cannot change its progress status anymore, unless you disable the auto finish with the `disableAutoFinish` method ... You will then have to end the progress yourself with the `finish` method.
 
 ```php
 // In the "handle" method of your command class ...
@@ -111,12 +109,11 @@ $progress_bar->finish('finished ...');
 $progress_bar->regress('not working ...');
 ```
     
-    
 ## Styling
 
 ### Customizing a progress bar
 
-You can change width and the characters of the progress line to create your own custom progress bar.
+You can change the width and the characters of the progress line to create a custom progress bar.
 
 ```php
 // In the "handle" method of your command class ...
@@ -171,7 +168,7 @@ $progress_bar = $this->progressBar(10)
 
 ## Verbosity
 
-A progress bar can easily be displayed or not depending on the verbosity. In the following example, the progress bar will only be displayed with the "--verbose", or the "--debug" options. 
+A progress bar can be displayed or not depending on the verbosity. In the following example, the progress bar will only be displayed with the "--verbose", or the "--debug" options. 
     
 ```php
 // In the "handle" method of your command class ...

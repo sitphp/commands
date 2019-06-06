@@ -4,7 +4,7 @@
 
 ### Creating a simple table
 
-You can use the table tool display content in rows and columns. Use the `table` method to create a table. Then define every table row in an array. You can also insert line with the `line` method.
+You can use the table tool to display content organized in rows and columns. Use the `table` method to create a table. Then define every table row in an array. You can also insert a table with a `line` item.
 
 ```php
 // In the "handle" method of your command class ...
@@ -35,7 +35,7 @@ $this->table([
 
 ![table command size](img/table_size.png) 
 
-You can also set the maximum column width and row height :
+You can also set the maximum column width and maximum row height :
 
 ```php
 // In the "handle" method of your command class ...
@@ -68,7 +68,7 @@ $this->table([
 
 ## Spanning cells
 
-You might want a cell to span over multiple rows and columns. This is possible by defining cell parameters :
+If you want a cell to span over multiple rows and columns, this is done by defining cell parameters :
     
 ```php
 // In the "handle" method of your command class ...
@@ -91,7 +91,6 @@ $this->table([
 ```
     
 ![table rowspan](img/table_rowspan.png)   
-   
 
 ## Styling
 
@@ -167,7 +166,7 @@ $this->table([
 
 ### Creating a custom style
     
-If you are using your own command application, you can also create table styles with the table manager.
+If you are using your own command application, you can also create a table style with the table manager.
     
 ```php
 // In your command application file ...
@@ -191,7 +190,7 @@ $this->table([
     
 ### Styling lines
 
-You can create a fully customized line with the `Line` class.
+You can also create a fully customized line with the `\SitPHP\Commands\Tools\Table\Line` class.
     
 ```php
 use SitPHP\Commands\Tools\Table\Line;
@@ -214,7 +213,7 @@ $this->table([
    
 ![table line](img/table_line.png)   
    
-If you are using your own command application, you can also create line breaks styles with the table manager tool :
+If you are using your own command application, you can also create line styles with the table manager tool :
 
 ```php
 // ...
@@ -235,10 +234,9 @@ $this->table([
 ->display();
 ```        
         
-
 ## Sticky table 
 
-You can "stick" your table to the same position with the `placeHere` method. You can then add or remove rows as you wish and re display your table at the same place. You can try this :
+You can "stick" your table to the same position with the `placeHere` method. You can then add or remove rows as you wish and re-display your table at the same place. Try this for example :
 
 ```php
 // In the "handle" method of your command class ...
@@ -261,7 +259,7 @@ $table->removeRow(0)->display();
     
 ## Verbosity
 
-And a table can easily be displayed or not depending on the verbosity. You can also decide to add, remove or set rows or not depending on the verbosity. 
+A table can be displayed or not depending on the verbosity. You can also decide to add, remove or set rows or not depending on the verbosity. 
 
 In the following example, the table will only be displayed with the "--verbose", or the "--debug" options. 
     
@@ -273,7 +271,7 @@ $this->table([
 ])->display(self::VERBOSITY_VERBOSE);
 ```
     
-In the following example, the row "['crocodile','reptile']" will only be displayed with the "--debug" option.
+In the following example, the row "['crocodile','reptile']" will only be added with the "--debug" option.
 
 ```php
 // In the "handle" method of your command class ...

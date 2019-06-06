@@ -94,6 +94,9 @@ class TableTool extends Tool
 
     function setColumnMaxWidth(int $index, int $width)
     {
+        if($index < 1){
+            throw new InvalidArgumentException('Invalid column max width : expected integer >= 1');
+        }
         $this->columns_max_width[$index] = $width;
         return $this;
     }
@@ -105,6 +108,9 @@ class TableTool extends Tool
 
     function setColumnWidth(int $index, int $width)
     {
+        if($index < 1){
+            throw new InvalidArgumentException('Invalid column width : expected integer >= 1');
+        }
         $this->columns_width[$index] = $width;
         return $this;
     }
@@ -121,6 +127,9 @@ class TableTool extends Tool
 
     function setRowHeight(int $index, int $height)
     {
+        if($index < 1){
+            throw new InvalidArgumentException('Invalid row height : expected integer >= 1');
+        }
         $this->row_heigth[$index] = $height;
         return $this;
     }
@@ -132,6 +141,9 @@ class TableTool extends Tool
 
     function setRowMaxHeight(int $index, int $height)
     {
+        if($index < 1){
+            throw new InvalidArgumentException('Invalid row max height : expected integer >= 1');
+        }
         $this->row_max_heigth[$index] = $height;
         return $this;
     }

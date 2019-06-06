@@ -4,7 +4,7 @@
 
 ### Creating a simple section
 
-The section is used update content at a predefined position on the screen. You can create a section with the `section` method and place it where you decide with the `placeHere` method. Every content written in the section will shown at the placed position. Here is an example to illustrate this :
+The section is used to update or move content at a predefined position on the screen. You can create a section with the `section` method and place it where you decide with the `placeHere` method. Every content in the section will written at the placed position. Here is an example to illustrate this :
 
 ```php
 // In the "handle" method of your command class ...
@@ -37,12 +37,11 @@ $section->placeHere();
     
 ![command moving section](img/section_move.gif)    
     
-The section tool is used by other tools for their "sticky" display. For example you can use `$this->bloc()->placeHere()` to display a bloc content at the same place on the screen all the time. You might also the section tool to build your own command tool.
-
+> {.info} The section tool is used by other tools for their "sticky" display. For example you can use `$this->bloc()->placeHere()` to display a bloc content at the same place on the screen all the time. You might also the section tool to build your own command tool.
 
 ## Verbosity
 
-A section can message easily be displayed or not depending on the verbosity.
+A section can message be displayed or not depending on the verbosity.
 
 ```php
 // In the "handle" method of your command class ...

@@ -4,7 +4,7 @@
 
 ### Creating a simple question
 
-The question tool allows to ask for user input. Use the `question` method to create a new question. It can take to arguments : the question prompt and an array of autocomplete values.
+The question tool allows to ask for user input. Use the `question` method to create a new question. This method can take two arguments : the question prompt and an array of autocomplete values.
 
 ```php
 // In the "handle" method of your command class ...
@@ -22,7 +22,7 @@ function handle(){
 
 ### Placeholder
     
-It is possible to display a placeholder with the `setPlaceholder` method. It will only show when the user has not started typing his answer:
+It is possible to display a placeholder with the `setPlaceholder` method. It will only show when the user has not started typing :
 
 ```php
 // In the "handle" method of your command class ...
@@ -34,7 +34,7 @@ $genre = $this->question('Which music genre do you like ?', $genres)
     
 ### Dynamic autocomplete
     
-The autocomplete values can be dynamically updated as you type. The following code, for example will only display autocomplete for the first character typed : 
+The autocomplete values can be dynamically updated as the user types. The following code, for example will only display autocomplete for the first typed character : 
 
 ```php
 // In the "handle" method of your command class ...
@@ -49,7 +49,7 @@ $genre = $this->question('Which music genre do you like ?', function($input){
 
 ### Customizing a question
 
-You can modify the question display as you wish. Here is a example of what you can do :
+You can modify the question display as you wish. Here is an example of what you could do with all the styling methods available :
 
 ```php
 // In the "handle" method of your command class ...
@@ -82,8 +82,7 @@ $command_manager->getQuestionManager()
     ->setPromptFormat('> %prompt% ')
 ```
  
-        
-And then simply apply your style to your choice like this :
+And then simply apply your style to your question like this :
 
 ```php
 // In the "handle" method of your command class ...
@@ -92,20 +91,17 @@ $genre = $this->question('Which music genre do you like ?', $genres)
     ->setStyle('your-style')
     ->ask();
 ```
-        
-
 
 ## Verbosity
 
-A question can easily be displayed or not depending on the verbosity. In the following example, the question will only be displayed with the "--verbose", or the "--debug" options. 
+A question can be displayed or not depending on the verbosity. In the following example, the question will only be displayed with the "--verbose", or the "--debug" options. 
 
 ```php
 // In the "handle" method of your command class ...
 $question = $this->question('Which music genre do you like ?')
 $question->ask(self::VERBOSITY_VERBOSE);
 ```
-       
-        
+            
 ## Sticky question
 
 You can "stick" your question to the same position with the `placeHere` method. This would be useful, for example, to validate an answer and re-ask the question while the answer value isn't the one you expect.

@@ -16,7 +16,7 @@ $this->bloc('I am a simple bloc ...')
 
 ### Setting bloc content
     
-You can also add, prepend, set or clear bloc content by  bloc content using the `addContent`, `prependContent`, `setContent` or `clear` methods.
+You can also add, prepend, set or clear the bloc content with the `addContent`, `prependContent`, `setContent` or `clear` methods.
 
 ```php
 // In the "handle" method of your command class ...
@@ -34,8 +34,7 @@ The content of the bloc will be "before middle after".
 
 ### Customizing a bloc
 
-You can modify the display of a bloc as you wish. Here is an example of what you could do :
-          
+You can modify the display of a bloc as you wish. Here is an example of what you could do with all the styling methods available :
           
 ```php
 // In the "handle" method of your command class ...
@@ -57,7 +56,7 @@ $this->bloc('I am a customized bloc ...')
       
 ### Creating a style      
       
-If you are using your own command tool, you can also build a custom style using the bloc manager :
+If you are using your own command application, you can also build a custom style using the bloc manager :
 
 ```php
 // In your command application file ...
@@ -77,7 +76,7 @@ $color_index = $this->bloc('content ...')
     
 ## Verbosity
 
-And a bloc can easily be displayed or not depending on the verbosity. Also content can easily be added, prepended, cleared or not depending on the verbosity. 
+You can decide to display a bloc or not depending on the verbosity. Also content can easily be added, prepended, cleared or not depending on the verbosity. 
 
 In the following example, the bloc will only be displayed with the "--verbose", or the "--debug" options. 
 
@@ -88,7 +87,7 @@ $bloc->addContent('content ...');
 $bloc->display(self::VERBOSITY_VERBOSE);
 ```
     
-In the following example, the message "more details ..." will only be displayed with the "--debug" option.
+In the following example, the message "more details ..." will only be added with the "--debug" option.
     
 ```php
 // In the "handle" method of your command class ...
@@ -101,7 +100,7 @@ $bloc->display();
     
 ## Sticky bloc
 
-You can "stick" your bloc to the same position with the `placeHere` method. You can then dynamically update your bloc. For example
+You can "stick" a bloc to the same position with the `placeHere` method. I allows you to dynamically update your bloc. For example :
 
 ```php
 // In the "handle" method of your command class ...
