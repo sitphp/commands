@@ -1,6 +1,6 @@
 {
     "name": "sitphp/commands",
-    "description": "A simple tool to create bundle commands",
+    "description": "Simple yet powerful library to run commands from other libraries or to build a command application",
     "type": "library",
     "license": "MIT",
     "authors": [
