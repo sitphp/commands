@@ -1,6 +1,6 @@
 # SitPHP/Commands
 
-![Build Status](https://travis-ci.org/sitphp/commands.svg?branch=master)](https://travis-ci.org/sitphp/commands)
+![Build Status](https://travis-ci.org/sitphp/commands.svg?branch=master)
 
 
 [Read the full documentation here](https://sitphp.com/commands/doc/intro/latest)
@@ -86,7 +86,7 @@ class YourCommand extends \SitPHP\Commands\Command {
 }
 ```
     
-![command write](img/command_write.png)
+![command write](doc/img/command_write.png)
 
 
 ## Arguments and options
@@ -158,7 +158,7 @@ $this->writeLn('This will display in <cs color="blue">blue</cs>');
 $this->writeLn('This will display <cs style="bold;highlight">highlighted and bold</cs>');
 $this->writeLn('This will display <cs color="white" background-color="blue">with a white text in a blue background</cs>');
 ```
-![command style](img/command_style.png)
+![command style](doc/img/command_style.png)
 
 
 ## Tools
@@ -194,7 +194,7 @@ for($i = 1; $i <= 5; $i++){
 }
 ```
 
-![command progress bar](img/progress_basic.gif)
+![command progress bar](doc/img/progress_basic.gif)
 
 ### The question tool
 
@@ -212,7 +212,7 @@ function handle(){
 }
 ```
     
-![command question](img/question_basic.gif)
+![command question](doc/img/question_basic.gif)
 
 
 ### The choice tool
@@ -237,7 +237,7 @@ function handle(){
 }
 ```
 
-![command choice](img/choice_basic.gif)
+![command choice](doc/img/choice_basic.gif)
 
 ### Section tool
 
@@ -254,7 +254,7 @@ sleep(1);
 $section->overwriteLn('This goes in the <cs color="red">middle</cs>');
 ```
 
-![command section](img/section_basic.gif)
+![command section](doc/img/section_basic.gif)
 
 ### Table tool
 
@@ -270,4 +270,4 @@ $this->table([
 ])->display();
 ```
 
-![table command](img/table_basic.png)
+![table command](doc/img/table_basic.png)
