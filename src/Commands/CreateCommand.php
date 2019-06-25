@@ -2,7 +2,6 @@
 
 namespace SitPHP\Commands\Commands;
 
-
 use InvalidArgumentException;
 use SitPHP\Commands\Command;
 

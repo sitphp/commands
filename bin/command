@@ -42,9 +42,8 @@ set_error_handler('errorHandler');
 $request = Request::createFromGlobal();
 $command_manager = new CommandManager();
 try{
-    $command_manager->setCommand('fdsdfs','hbbjh');
     $command_manager->run($request);
-} catch (\Throwable $exception){
+} catch (Throwable $exception){
     $exception_handler = new ExceptionHandler();
     $exception_handler->handleForConsole($command_manager, $request, $exception);
 }

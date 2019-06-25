@@ -1,5 +1,7 @@
 <?php
 
+// TODO : Add tool style instances
+
 namespace SitPHP\Commands;
 
 use Exception;
@@ -190,7 +192,7 @@ class CommandManager
 
 
     /**
-     * Resolve command instance from name
+     * Resolve command instance from command name
      *
      * @param string $name
      * @return mixed|Command|null
@@ -437,7 +439,7 @@ class CommandManager
             // Run help command instead when help option is active
             if (!$command instanceof HelpCommand && ($request->getOption('help') || $request->getFlag('h'))) {
                 $help_request = new Request('help', [$request->getCommandName()], $request->getInput(), $request->getOutput(), $request->getErrorOutput());
-                return self::run($help_request);
+                return $this->run($help_request);
             }
 
             // Execute command
@@ -596,7 +598,7 @@ class CommandManager
 
 
     /**
-     * Resolve command class
+     * Return command class
      *
      * @param string $command_name
      * @return string
