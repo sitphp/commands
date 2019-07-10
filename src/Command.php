@@ -328,10 +328,6 @@ abstract class Command
             return 100;
         }
         $this->validateRequest($request);
-
-        $formatter = $this->getManager()->getFormatter();
-        $request->getOutput()->setFormatter($formatter);
-        $request->getErrorOutput()->setFormatter($formatter);
         $this->current_request = $request;
 
         $status_code = $this->handle() ?? 0;

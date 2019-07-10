@@ -420,6 +420,10 @@ class CommandManager
      */
     protected function doRun(Request $request, Command $command = null){
         $event_manager = $this->getEventManager();
+        $formatter = $this->getFormatter();
+        $request->getOutput()->setFormatter($formatter);
+        $request->getErrorOutput()->setFormatter($formatter);
+
         try{
             // Run on request event
             $event_manager->fire(new RequestEvent(self::ON_REQUEST_EVENT), ['request' => $request]);
